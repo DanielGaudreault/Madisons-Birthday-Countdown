@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madison's Birthday Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background-color: #ffccd5;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 200px;
+            height: 200px;
+            background-color: #ffccd5;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        h1 {
+            color: #e91e63;
+            margin-bottom: 10px;
+            font-size: 2.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .birthday-info {
+            background-color: #fff5f7;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .birthday-info p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .countdown-box {
+            background: linear-gradient(135deg, #e91e63, #ff80ab);
+            color: white;
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .message {
+            margin-top: 30px;
+            font-size: 1.3rem;
+            color: #e91e63;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .age-display {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            color: #e91e63;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #ffccd5;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .decoration:nth-child(1) {
+            top: 30px;
+            left: 10%;
+        }
+        
+        .decoration:nth-child(2) {
+            bottom: 40px;
+            right: 15%;
+        }
+        
+        .decoration:nth-child(3) {
+            top: 50%;
+            left: 5%;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-box {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        
+        <h1>Madison's Birthday Countdown</h1>
+        <p class="subtitle">Counting down to April 17th</p>
+        
+        <div class="birthday-info">
+            <p><strong>Birthday:</strong> April 17, 2005</p>
+            <p><strong>Zodiac Sign:</strong> Aries ♈</p>
+            <p><strong>Birthstone:</strong> Diamond</p>
+        </div>
+        
+        <div class="age-display" id="ageDisplay">Calculating age...</div>
+        
+        <div class="countdown-container">
+            <div class="countdown-box">
+                <div class="countdown-value" id="days">0</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="hours">0</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="minutes">0</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="seconds">0</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+        
+        <div class="message" id="message">Counting down to Madison's special day!</div>
+    </div>
+
+    <script>
+        // Madison's birthday - April 17, 2005
+        const birthday = new Date(2005, 3, 17); // Note: months are 0-indexed in JS
+        
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            
+            // Set next birthday - if birthday has passed this year, use next year
+            let nextBirthday = new Date(currentYear, 3, 17);
+            if (now > nextBirthday) {
+                nextBirthday = new Date(currentYear + 1, 3, 17);
+            }
+            
+            // Calculate time difference
+            const diff = nextBirthday - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Update display
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            // Calculate and display age
+            let age = currentYear - 2005;
+            if (now < new Date(currentYear, 3, 17)) {
+                age--; // Birthday hasn't occurred yet this year
+            }
+            document.getElementById('ageDisplay').textContent = `Madison is ${age} years old`;
+            
+            // Update message based on countdown
+            if (days === 0 && hours === 0 && minutes < 60) {
+                document.getElementById('message').textContent = "It's almost Madison's birthday! 🎉";
+            } else if (days === 0) {
+                document.getElementById('message').textContent = "Madison's birthday is today! 🎂🎈";
+            } else if (days < 7) {
+                document.getElementById('message').textContent = "Madison's birthday is just around the corner!";
+            } else {
+                document.getElementById('message').textContent = "Counting down to Madison's special day!";
+            }
+        }
+        
+        // Initial call
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
